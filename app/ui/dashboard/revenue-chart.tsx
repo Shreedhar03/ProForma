@@ -1,6 +1,6 @@
 'use client'
 import React, { ReactPropTypes } from 'react';
-import { Chart, } from 'react-chartjs-2';
+import { Chart } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement } from 'chart.js';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement);
