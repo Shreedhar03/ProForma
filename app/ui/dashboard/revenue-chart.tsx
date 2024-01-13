@@ -1,9 +1,9 @@
 'use client'
 import React, { ReactPropTypes } from 'react';
-import { Chart } from 'react-chartjs-2';
-import { Chart as ChartJS, CategoryScale, LinearScale, BarElement } from 'chart.js';
+import { Bar } from 'react-chartjs-2';
+import { Chart, CategoryScale, LinearScale, BarElement } from 'chart.js';
 
-ChartJS.register(CategoryScale, LinearScale, BarElement);
+Chart.register(CategoryScale, LinearScale, BarElement);
 
 export default function RevenueChart(dataSet: any) {
 
@@ -40,7 +40,7 @@ export default function RevenueChart(dataSet: any) {
 
     return (
         <>
-            <Chart type='bar' data={data} options={options} />
+            <Bar data={data} options={options} />
         </>
     );
 }
