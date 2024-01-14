@@ -15,7 +15,7 @@ export async function fetchRevenue() {
   noStore()
 
   // console.log("Fetching revenues.....")
-  await new Promise(resolve => setTimeout(resolve, 4000))
+  // await new Promise(resolve => setTimeout(resolve, 4000))
   // console.log("Done!!")
   // Add noStore() here to prevent the response from being cached.
   // This is equivalent to in fetch(..., {cache: 'no-store'}).

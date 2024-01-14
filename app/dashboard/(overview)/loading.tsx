@@ -4,7 +4,8 @@ import DashboardSkeleton from '../../ui/skeletons'
 export default function Loading() {
   return (
     <div>
-      <DashboardSkeleton />
+      {/* <DashboardSkeleton /> */}
+      <h2 className="text-center">Getting details......</h2>
     </div>
   )
 }
