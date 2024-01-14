@@ -12,9 +12,9 @@ export default async function page() {
   console.log(cardData)
   return (
     <main>
-      <h1 className={`mb-4 text-xl md:text-2xl`}>Dashboard</h1>
+      <h1 className={`mb-4 text-xl md:text-2xl sm:text-left text-center`}>Dashboard</h1>
       <Overview cardData={cardData} />
-      <div className="my-8 grid grid-cols-1 md:grid-cols-2 gap-12">
+      <div className="my-8 grid grid-cols-1 lg:grid-cols-2 gap-12">
         <div className="flex flex-col gap-8">
           <h2>Recent Revenue</h2>
           <Suspense fallback={<RevenueChartSkeleton />}>

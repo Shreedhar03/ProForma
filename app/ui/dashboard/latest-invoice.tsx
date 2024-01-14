@@ -14,7 +14,7 @@ export default function LatestINvoices({ invoices }: { invoices: Invoice[] }) {
     return (
         <div className='flex flex-col gap-8'>
             <h2>Latest Invoices</h2>
-            <section className='w-9/12 flex flex-col gap-3'>
+            <section className='sm:w-9/12 flex flex-col gap-3'>
                 {
                     invoices.map(inv => {
                         return (

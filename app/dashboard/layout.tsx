@@ -8,7 +8,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <div className="h-screen flex">
             <Sidenav />
             <div className="flex-1 md:ml-64">
-                <div className="bg-card py-4 px-8 sticky top-0 z-30">
+                <div className="border-b border-b-secondary bg-background py-4 px-8 sticky top-0 z-30">
                     <h1 className='font-semibold rounded-md flex items-center justify-between md:justify-end gap-3'>
                         <button className="block md:hidden">
                             <Menu></Menu>
