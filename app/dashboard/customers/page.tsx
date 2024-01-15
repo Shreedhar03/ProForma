@@ -13,7 +13,7 @@ export default async function page() {
                     customers.map(cus => {
                         return (
                             <div key={cus.id} className='flex flex-col items-center bg-secondary p-6 rounded-md w-52'>
-                                <Image src={cus.image_url} width={70} height={70} className='rounded-full'/>
+                                <Image alt='customer' src={cus.image_url} width={70} height={70} className='rounded-full'/>
                                 <div className='mt-3'>
                                     <p className='leading-5 font-medium text-lg text-primary text-center'>{cus.name}</p>
                                     <p className='leading-5 text-muted-foreground text-base text-center'>{cus.email}</p>
