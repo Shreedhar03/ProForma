@@ -5,7 +5,7 @@ import { ThemeProvider } from "@/components/theme-provider"
 import { ModeToggler } from '@/components/ModeToggler'
 import NextTopLoader from 'nextjs-toploader'
 
-const inter = Inter({ subsets: ['latin'] })
+// const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'BillWise',
