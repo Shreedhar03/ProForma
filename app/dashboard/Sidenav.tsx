@@ -18,7 +18,7 @@ export default function Sidenav() {
             <nav className='h-screen flex flex-col justify-between fixed left-0 top-0 py-4 px-6 -translate-x-[300px] transition-transform md:translate-x-0 md:w-64 border-r border-r-secondary'>
                 <section className='flex flex-col gap-10'>
 
-                    <h2 className="logo text-2xl border-b-[3px] border-b-primary text-left">BillWise<span className="text-primary text-4xl font-semibold">.</span></h2>
+                    <Link href={'/'} className="logo text-2xl border-b-[3px] border-b-primary text-left">BillWise<span className="text-primary text-4xl font-semibold">.</span></Link>
 
                     <div className='text-xl flex flex-col gap-4 w-full md:w-4/5'>
                         {
