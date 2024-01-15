@@ -1,10 +1,9 @@
-'use client'
-
 import { Home, LogOut, Scroll, Users2 } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React from 'react'
 import clsx from 'clsx'
+import { signOut } from '@/auth';
 
 const links = [
     { title: 'Home', href: '/dashboard', icon: <Home size={21}></Home> },
@@ -12,7 +11,7 @@ const links = [
     { title: 'Customers', href: '/dashboard/customers', icon: <Users2 size={21}></Users2> },
 ]
 export default function Sidenav() {
-    const pathname = usePathname()
+    // const pathname = usePathname()
     return (
         <>
             <nav className='h-screen flex flex-col justify-between fixed left-0 top-0 py-4 px-6 -translate-x-[300px] transition-transform md:translate-x-0 md:w-64 border-r border-r-secondary'>
@@ -25,15 +24,20 @@ export default function Sidenav() {
                             links.map((link, key) => {
                                 return <Link href={link.href} key={key} className={
                                     clsx('flex items-center gap-3 text-base hover:bg-accent p-3 transition-all rounded-lg', {
-                                        'bg-accent': pathname === link.href
+                                        'bg-accent': "pathname" === link.href
                                     })
                                 }>{link.icon}{link.title}</Link>
                             })
                         }
                     </div>
                 </section>
-
-                <button className='flex items-center gap-1 text-base hover:bg-accent p-2 self-start transition-all rounded-lg'><LogOut size={20}></LogOut>Sign Out</button>
+                <form
+                    action={async () => {
+                        'use server';
+                        await signOut();
+                    }}>
+                    <button className='flex items-center gap-1 text-base hover:bg-accent p-2 self-start transition-all rounded-lg'><LogOut size={20}></LogOut>Sign Out</button>
+                </form>
             </nav>
 
         </>

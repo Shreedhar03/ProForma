@@ -1,7 +1,11 @@
 import AvatarDemo from "@/components/AvatarDemo";
 import Sidenav from "./Sidenav";
 import { Menu } from "lucide-react";
+import { Metadata } from "next";
 
+export const metadata: Metadata = {
+    title: 'Billwise | Dashboard',
+};
 
 export default function Layout({ children }: { children: React.ReactNode }) {
     return (
