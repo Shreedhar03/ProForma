@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import { ThemeProvider } from "@/components/theme-provider"
 import { ModeToggler } from '@/components/ModeToggler'
+import NextTopLoader from 'nextjs-toploader'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -23,6 +24,7 @@ export default function RootLayout({
           attribute="class"
           defaultTheme="light"
           disableTransitionOnChange>
+          <NextTopLoader color='#e11d48'/>
           {children}
           <div className="fixed bottom-6 right-6">
             <ModeToggler />
