@@ -6,9 +6,9 @@ export function CreateInvoice() {
   return (
     <Link
       href="/dashboard/invoices/create"
-      className="flex h-10 items-center rounded-lg bg-primary px-4"
+      className="mt-2 flex py-1 items-center rounded-lg bg-primary text-background font-semibold px-3 w-[122px]"
     >
-      <p className='pr-2'>Add new</p>
+      <p className='pr-1 font-semibold'>Add new</p>
       <PlusIcon className="h-5" />
     </Link>
   );
