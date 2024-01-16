@@ -13,8 +13,8 @@ export default function RevenueChart(dataSet: any) {
             {
                 label: 'Revenue',
                 data: [5000, 7000, 5500, 9000, 8000, 6000, 7500, 8200, 6000, 9500, 8800, 7000],
-                backgroundColor: 'rgba(225, 29, 72,0.3)', // Bar fill color
-                borderColor: 'rgb(225, 29, 72,1)', // Bar border color
+                backgroundColor: 'rgb(109, 40, 217,0.2)', // Bar fill color
+                borderColor: 'rgb(109, 40, 217,1)', // Bar border color
                 borderWidth: 1,
             },
         ],

@@ -23,10 +23,10 @@ export default function RootLayout({
       <body className='bg-background'>
         <ThemeProvider
           attribute="class"
-          defaultTheme="light"
+          defaultTheme="system"
           disableTransitionOnChange>
           <AppContext>
-            <NextTopLoader color='#e11d48' showSpinner={false} />
+            <NextTopLoader color='#6d28d9' showSpinner={false} />
             {children}
           </AppContext>
           <div className="fixed bottom-6 right-6">
