@@ -22,7 +22,7 @@ export default async function Page({ searchParams }: { searchParams?: { query?: 
         <h1 className={`text-2xl`}>Invoices</h1>
       </div>
       <CreateInvoice />
-      <div className="flex items-center justify-start gap-2 md:mt-8">
+      <div className="flex items-center justify-start gap-2 mt-4 md:mt-8">
         <Search placeholder="Search invoices..." />
       </div>
       {/* <Suspense key={query + currentPage} fallback={<InvoicesTableSkeleton />}> */}

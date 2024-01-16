@@ -10,7 +10,7 @@ const links = [
     { title: 'Invoices', href: '/dashboard/invoices', icon: <Scroll size={21}></Scroll> },
     { title: 'Customers', href: '/dashboard/customers', icon: <Users2 size={21}></Users2> },
 ]
-export default function Sidenav({ isOpened }: { isOpened: boolean }) {
+export default function Sidenav({ isOpened, setIsOpened }: { isOpened: boolean, setIsOpened: () => void }) {
     // const pathname = usePathname()
     return (
         <>
@@ -27,7 +27,9 @@ export default function Sidenav({ isOpened }: { isOpened: boolean }) {
                                     clsx('flex items-center gap-3 text-base hover:bg-accent p-3 transition-all rounded-lg', {
                                         'bg-accent': "pathname" === link.href
                                     })
-                                }>{link.icon}{link.title}</Link>
+                                }
+                                    onClick={setIsOpened}
+                                >{link.icon}{link.title}</Link>
                             })
                         }
                     </div>
