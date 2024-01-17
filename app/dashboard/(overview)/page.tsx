@@ -11,10 +11,10 @@ export const metadata: Metadata = {
   title: 'Billwise | Dashboard',
 };
 
-export default async function page() {
+export default async function Page() {
   const latestInvoice = await fetchLatestInvoices()
   const cardData = await fetchCardData()
-  if(!latestInvoice || !cardData){
+  if (!latestInvoice || !cardData) {
     notFound()
   }
   console.log(cardData)

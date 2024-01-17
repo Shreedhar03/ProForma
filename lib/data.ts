@@ -235,13 +235,13 @@ export async function fetchFilteredCustomers(query: string) {
   }
 }
 
-export async function getUser(email: string) {
-  noStore()
-  try {
-    const user = await sql`SELECT * FROM users WHERE email=${email}`;
-    return user.rows[0] as User;
-  } catch (error) {
-    console.error('Failed to fetch user:', error);
-    throw new Error('Failed to fetch user.');
-  }
-}
+// export async function getUser(id: string) {  
+//   noStore()
+//   try {
+//     const user = await sql`SELECT * FROM users WHERE id=${id}`;
+//     return user.rows[0] as User;
+//   } catch (error) {
+//     console.error('Failed to fetch user:', error);
+//     throw new Error('Failed to fetch user.');
+//   }
+// }

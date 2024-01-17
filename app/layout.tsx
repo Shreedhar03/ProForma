@@ -1,5 +1,4 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
 import './globals.css'
 import { ThemeProvider } from "@/components/theme-provider"
 import { ModeToggler } from '@/components/ModeToggler'
@@ -21,19 +20,18 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className='bg-background'>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          disableTransitionOnChange>
-          <AppContext>
-            <NextTopLoader color='#6d28d9' showSpinner={false} />
-            {children}
-          </AppContext>
-          <div className="fixed bottom-6 right-6">
-            <ModeToggler />
-          </div>
-        </ThemeProvider>
-
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            disableTransitionOnChange>
+            <AppContext>
+              <NextTopLoader color='#6d28d9' showSpinner={false} />
+              {children}
+            </AppContext>
+            <div className="fixed bottom-6 right-6">
+              <ModeToggler />
+            </div>
+          </ThemeProvider>
       </body>
     </html>
   )

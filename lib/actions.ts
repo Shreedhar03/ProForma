@@ -6,6 +6,9 @@ import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { signIn } from '@/auth';
 import { AuthError } from 'next-auth';
+import bcrypt from 'bcrypt'
+const { v4: uuidv4 } = require('uuid');
+
 
 const FormSchema = z.object({
     id: z.string(),
@@ -100,3 +103,39 @@ export async function authenticate(
       throw error;
     }
   }
+
+export async function registerUser(prevState: string | undefined, formData: FormData) {
+
+    const uniqueId = uuidv4();
+    console.log("uniqueId", uniqueId);
+    try {
+        let email = formData.get('email')?.toString()
+        let name = formData.get('name')?.toString() ?? ''
+        let password = formData.get('password')?.toString() ?? ''
+        let confirmPassword = formData.get('confirmPassword')?.toString() ?? ''
+
+        if (password !== confirmPassword) return "Passwords do not match"
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        const user = await sql`
+            select * from USERS where email=${email};
+        `
+        if (user.rowCount) {
+            return "Email already taken"
+        }
+        // console.log("exixts", user.rowCount)
+        const newUser = await sql
+            `
+            INSERT INTO users VALUES(${uniqueId},${name},${email},${hashedPassword})
+            ON CONFLICT (id) DO NOTHING;
+        `
+        console.log(newUser)
+        return "User registered successfully"
+    } catch (error) {
+        if (error) {
+            return "Something went wrong"
+        }
+        throw error
+
+    }
+}

@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 export default function LoginPage() {
     return (
-        <main className="flex items-center justify-center mt-10 sm:mt-0 md:h-screen">
+        <main className="flex items-center justify-center mt-10 sm:mt-10 md:h-screen">
             <div className="relative mx-auto flex w-full max-w-[400px] flex-col space-y-2.5 p-4 md:-mt-32">
                 <div className="flex h-16 w-full items-end rounded-lg bg-secondary border border-primary p-3 md:h-36">
                     <div className="w-32 md:w-36">
@@ -13,6 +13,7 @@ export default function LoginPage() {
                     </div>
                 </div>
                 <LoginForm />
+                <Link href={'/register'} className='text-center'>New to BillWise? <span className='underline underline-offset-2 text-primary'>Register</span></Link>
             </div>
         </main>
     );
