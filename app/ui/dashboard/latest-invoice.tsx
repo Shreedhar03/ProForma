@@ -1,4 +1,6 @@
+import { NavigationIcon, PlusCircleIcon } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
 import React from 'react'
 
 interface Invoice {
@@ -14,6 +16,12 @@ export default function LatestINvoices({ invoices }: { invoices: Invoice[] }) {
     return (
         <div className='flex flex-col gap-8'>
             <h2>Latest Invoices</h2>
+            {
+                invoices.length===0 && <Link href={'/dashboard/invoices/create'} className='underline text-primary underline-offset-4 flex items-center gap-2'>
+                    <PlusCircleIcon />
+                    Create your first invoice
+                    </Link>
+            }
             <section className='sm:w-9/12 flex flex-col gap-3'>
                 {
                     invoices.map(inv => {

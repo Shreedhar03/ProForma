@@ -10,6 +10,7 @@ import {
   Revenue,
 } from './definitions';
 import { formatCurrency } from './utils';
+import { getCurrentUserEmail } from './actions';
 
 export async function fetchRevenue() {
   noStore()
@@ -45,6 +46,7 @@ export async function fetchLatestInvoices() {
       SELECT invoices.amount, customers.name, customers.image_url, customers.email, invoices.id
       FROM invoices
       JOIN customers ON invoices.customer_id = customers.id
+      WHERE invoices.user_id ILIKE ${await getCurrentUserEmail()}
       ORDER BY invoices.date DESC
       LIMIT 5`;
 
@@ -65,12 +67,12 @@ export async function fetchCardData() {
     // You can probably combine these into a single SQL query
     // However, we are intentionally splitting them to demonstrate
     // how to initialize multiple queries in parallel with JS.
-    const invoiceCountPromise = sql`SELECT COUNT(*) FROM invoices`;
-    const customerCountPromise = sql`SELECT COUNT(*) FROM customers`;
+    const invoiceCountPromise = sql`SELECT COUNT(*) FROM invoices WHERE invoices.user_id ILIKE ${await getCurrentUserEmail()}`;
+    const customerCountPromise = sql`SELECT COUNT(*) FROM customers WHERE customers.vendor ILIKE ${await getCurrentUserEmail()}`;
     const invoiceStatusPromise = sql`SELECT
          SUM(CASE WHEN status = 'paid' THEN amount ELSE 0 END) AS "paid",
          SUM(CASE WHEN status = 'pending' THEN amount ELSE 0 END) AS "pending"
-         FROM invoices`;
+         FROM invoices WHERE invoices.user_id ILIKE ${await getCurrentUserEmail()}`;
 
     const data = await Promise.all([
       invoiceCountPromise,
@@ -116,11 +118,12 @@ export async function fetchFilteredInvoices(
       FROM invoices
       JOIN customers ON invoices.customer_id = customers.id
       WHERE
+        invoices.user_id ILIKE ${`%${await getCurrentUserEmail()}%`} AND(
         customers.name ILIKE ${`%${query}%`} OR
         customers.email ILIKE ${`%${query}%`} OR
         invoices.amount::text ILIKE ${`%${query}%`} OR
         invoices.date::text ILIKE ${`%${query}%`} OR
-        invoices.status ILIKE ${`%${query}%`}
+        invoices.status ILIKE ${`%${query}%`})
       ORDER BY invoices.date DESC
       LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
     `;
@@ -139,11 +142,13 @@ export async function fetchInvoicesPages(query: string) {
     FROM invoices
     JOIN customers ON invoices.customer_id = customers.id
     WHERE
-      customers.name ILIKE ${`%${query}%`} OR
-      customers.email ILIKE ${`%${query}%`} OR
-      invoices.amount::text ILIKE ${`%${query}%`} OR
-      invoices.date::text ILIKE ${`%${query}%`} OR
-      invoices.status ILIKE ${`%${query}%`}
+      invoices.user_id ILIKE ${`%${await getCurrentUserEmail()}%`} AND ( 
+        customers.name ILIKE ${`%${query}%`} OR
+        customers.email ILIKE ${`%${query}%`} OR
+        invoices.amount::text ILIKE ${`%${query}%`} OR
+        invoices.date::text ILIKE ${`%${query}%`} OR
+        invoices.status ILIKE ${`%${query}%`}
+      )
   `;
 
     const totalPages = Math.ceil(Number(count.rows[0].count) / ITEMS_PER_PAGE);
@@ -190,6 +195,7 @@ export async function fetchCustomers() {
         email,
         image_url
       FROM customers
+      WHERE customers.vendor=${await getCurrentUserEmail()}
       ORDER BY name ASC
     `;
 

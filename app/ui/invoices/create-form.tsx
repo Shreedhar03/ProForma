@@ -13,7 +13,7 @@ export default function Form({ customers }: { customers: CustomerField[] }) {
   
   return (
     <form action={createInvoice}>
-      <div className="rounded-md bg-secondary p-4 md:p-6 w-full sm:w-9/12">
+      <div className="rounded-md bg-secondary p-4 md:p-6 w-full sm:w-7/12">
         {/* Customer Name */}
         <div className="mb-4">
           <label htmlFor="customer" className="mb-2 block text-base font-normal">
@@ -52,7 +52,7 @@ export default function Form({ customers }: { customers: CustomerField[] }) {
                 name="amount"
                 type="number"
                 step="0.01"
-                placeholder="Enter USD amount"
+                placeholder="Enter INR amount"
                 className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-base outline-2 placeholder:text-gray-500"
                 required
               />
@@ -107,11 +107,11 @@ export default function Form({ customers }: { customers: CustomerField[] }) {
       <div className="mt-6 flex justify-start gap-4">
         <Link
           href="/dashboard/invoices"
-          className="flex h-10 items-center rounded-lg bg-destructive px-4 text-base text-secondary-foreground transition-colors"
+          className="flex h-10 items-center rounded-lg bg-red-600 text-background px-4 text-base font-medium transition-colors"
         >
           Cancel
         </Link>
-        <Button type="submit" className='bg-green-800 text-white'>Create Invoice</Button>
+        <Button type="submit" className='bg-green-600 text-background font-medium'>Create Invoice</Button>
       </div>
     </form>
   );

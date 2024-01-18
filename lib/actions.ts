@@ -1,5 +1,6 @@
 'use server'
 
+import getServerSession from 'next-auth'
 import z, { string } from 'zod'
 import { sql } from '@vercel/postgres';
 import { revalidatePath } from 'next/cache';
@@ -7,6 +8,7 @@ import { redirect } from 'next/navigation';
 import { signIn } from '@/auth';
 import { AuthError } from 'next-auth';
 import bcrypt from 'bcrypt'
+import { authConfig } from '@/auth.config';
 const { v4: uuidv4 } = require('uuid');
 
 
@@ -18,14 +20,39 @@ const FormSchema = z.object({
     date: z.string(),
 })
 
+export async function getCurrentUserEmail() {
+    let res = getServerSession(authConfig)
+    const email = await res.auth()
+    return email?.user?.email
+}
+export async function getCurrentUserName() {
+    let res = await getServerSession(authConfig)
+    const email = await res.auth()
+    return email?.user?.name
+}
+
 const CreateInvoice = FormSchema.omit({ id: true, date: true });
 
+export async function createCustomer(formData: FormData) {
+    console.log(formData)
+    let name = formData.get('customer_name')?.toString()
+    let email = formData.get('customer_email')?.toString()
+    let vendor = await getCurrentUserEmail()
+    const id = uuidv4()
+    await sql`
+    INSERT INTO customers (id,vendor, name, email, image_url)
+    VALUES (${id},${vendor}, ${name}, ${email}, '/customers/placeholder.png')
+    ON CONFLICT (id) DO NOTHING;
+    `
+    revalidatePath('/dashboard/customers')
+    redirect('/dashboard/customers')
+}
 export async function createInvoice(formData: FormData) {
     // const rawFormData = Object.fromEntries(formData.entries())
     // console.log(rawFormData)
     try {
-
-
+        let user = await getCurrentUserEmail()
+        console.log("----------creating invoice for user", user, "-------------------")
         const { customerId, amount, status } = CreateInvoice.parse({
             customerId: formData.get('customerId'),
             amount: formData.get('amount'),
@@ -34,10 +61,11 @@ export async function createInvoice(formData: FormData) {
         const amountInCents = amount * 100;
         const date = new Date().toISOString().split('T')[0];
 
-        await sql`
-        INSERT INTO invoices (customer_id, amount,status, date)
-        VALUES  (${customerId}, ${amountInCents}, ${status}, ${date})
+        const res = await sql`
+        INSERT INTO invoices (customer_id,user_id, amount,status, date)
+        VALUES  (${customerId},${user}, ${amountInCents}, ${status}, ${date})
         `
+        console.log(res)
     } catch (error) {
         return {
             message: "Cannot create invoice"
@@ -88,21 +116,21 @@ export async function deleteInvoice(id: string) {
 export async function authenticate(
     prevState: string | undefined,
     formData: FormData,
-  ) {
+) {
     try {
-      await signIn('credentials', formData);
+        await signIn('credentials', formData);
     } catch (error) {
-      if (error instanceof AuthError) {
-        switch (error.type) {
-          case 'CredentialsSignin':
-            return 'Invalid credentials.';
-          default:
-            return 'Something went wrong.';
+        if (error instanceof AuthError) {
+            switch (error.type) {
+                case 'CredentialsSignin':
+                    return 'Invalid credentials.';
+                default:
+                    return 'Something went wrong.';
+            }
         }
-      }
-      throw error;
+        throw error;
     }
-  }
+}
 
 export async function registerUser(prevState: string | undefined, formData: FormData) {
 

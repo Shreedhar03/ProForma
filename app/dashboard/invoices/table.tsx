@@ -16,8 +16,8 @@ export default async function InvoicesTable({
   return (
     <div className="mt-6 flow-root">
       <div className="inline-block min-w-full align-middle">
-        <div className="rounded-lg bg-muted p-2 md:pt-0">
-          <div className="md:hidden">
+        <div className="rounded-lg bg-muted p-2 lg:pt-0">
+          <div className="lg:hidden">
             {invoices?.map((invoice) => (
               <div
                 key={invoice.id}
@@ -41,7 +41,7 @@ export default async function InvoicesTable({
                 </div>
                 <div className="flex w-full items-center justify-between pt-4">
                   <div>
-                    <p className="text-xl font-medium">
+                    <p className="text-xl font-medium text-primary">
                       {formatCurrency(invoice.amount)}
                     </p>
                     <p>{formatDateToLocal(invoice.date)}</p>
@@ -54,7 +54,7 @@ export default async function InvoicesTable({
               </div>
             ))}
           </div>
-          <table className="hidden min-w-full text-accent-foreground md:table">
+          <table className="hidden min-w-full text-accent-foreground lg:table">
             <thead className="rounded-lg text-left text-sm font-normal">
               <tr>
                 <th scope="col" className="px-4 py-5 font-medium sm:pl-6">
@@ -117,6 +117,9 @@ export default async function InvoicesTable({
               ))}
             </tbody>
           </table>
+          {
+            invoices?.length===0 && <p className='text-center my-2'>No invoices found</p>
+          }
         </div>
       </div>
     </div>

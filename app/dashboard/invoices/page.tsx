@@ -19,7 +19,7 @@ export default async function Page({ searchParams }: { searchParams?: { query?: 
   return (
     <div className="w-full">
       <div className="flex w-full items-center justify-between">
-        <h1 className={`text-2xl`}>Invoices</h1>
+        <h1 className={`text-xl`}>Invoices</h1>
       </div>
       <CreateInvoice />
       <div className="flex items-center justify-start gap-2 mt-4 md:mt-8">
