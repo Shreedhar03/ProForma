@@ -22,7 +22,7 @@ export default function RootLayout({
       <body className='bg-background'>
           <ThemeProvider
             attribute="class"
-            defaultTheme="system"
+            defaultTheme="dark"
             disableTransitionOnChange>
             <AppContext>
               <NextTopLoader color='#6d28d9' showSpinner={false} />
