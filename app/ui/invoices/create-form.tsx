@@ -8,6 +8,7 @@ import {
 } from '@heroicons/react/24/outline';
 import { Button } from '@/app/ui/button';
 import { createInvoice } from '@/lib/actions';
+import SubmitBtn from '../submit-btn';
 
 export default function Form({ customers }: { customers: CustomerField[] }) {
   
@@ -111,7 +112,7 @@ export default function Form({ customers }: { customers: CustomerField[] }) {
         >
           Cancel
         </Link>
-        <Button type="submit" className='bg-green-600 text-background font-medium'>Create Invoice</Button>
+        <SubmitBtn text="Create Invoice"/>
       </div>
     </form>
   );

@@ -10,6 +10,7 @@ import {
 import Link from 'next/link';
 import { Button } from '@/app/ui/button';
 import { updateInvoice } from '@/lib/actions';
+import SubmitBtn from '../submit-btn';
 
 export default function EditInvoiceForm({
     invoice,
@@ -87,7 +88,7 @@ export default function EditInvoiceForm({
                                 />
                                 <label
                                     htmlFor="pending"
-                                    className="ml-2 flex cursor-pointer items-center gap-1.5 rounded-full bg-muted px-3 py-1.5 text-xs font-medium text-gray-600"
+                                    className="ml-2 flex cursor-pointer items-center gap-1.5 rounded-full bg-muted px-3 py-1.5 text-xs font-medium text-gray-600 bg-slate-400"
                                 >
                                     Pending <ClockIcon className="h-4 w-4" />
                                 </label>
@@ -115,11 +116,11 @@ export default function EditInvoiceForm({
             <div className="mt-6 flex justify-start gap-4">
                 <Link
                     href="/dashboard/invoices"
-                    className="flex h-10 items-center rounded-lg bg-muted px-4"
+                    className="flex h-10 items-center rounded-lg bg-red-600 hover:bg-red-700 px-4"
                 >
                     Cancel
                 </Link>
-                <Button type="submit" className='bg-green-800 text-white'>Edit Invoice</Button>
+                <SubmitBtn text='Edit Invoice' />
             </div>
         </form>
     );

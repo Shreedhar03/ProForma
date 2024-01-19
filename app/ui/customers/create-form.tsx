@@ -6,6 +6,7 @@ import {
 import { Button } from '@/app/ui/button';
 import { createCustomer } from '@/lib/actions';
 import { User2Icon } from 'lucide-react';
+import SubmitBtn from '../submit-btn';
 
 export default function Form() {
   
@@ -56,11 +57,10 @@ export default function Form() {
       <div className="mt-6 flex justify-start gap-4">
         <Link
           href="/dashboard/invoices"
-          className="flex h-10 items-center rounded-lg bg-red-600 text-background px-4 text-base font-medium transition-colors"
-        >
+          className="flex h-10 items-center rounded-lg bg-red-600 hover:bg-red-700 text-background px-4 text-base font-medium transition-colors">
           Cancel
         </Link>
-        <Button type="submit" className='bg-green-600 text-background font-medium'>Create Customer</Button>
+        <SubmitBtn text="Create Customer"/>
       </div>
     </form>
   );

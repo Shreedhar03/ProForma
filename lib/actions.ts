@@ -47,6 +47,18 @@ export async function createCustomer(formData: FormData) {
     revalidatePath('/dashboard/customers')
     redirect('/dashboard/customers')
 }
+export async function deleteCustomer(formData: FormData) {
+    console.log("-----------Deleteing--------------")
+    let customer_id = formData.get("cusId")?.toString()
+    await sql`
+        delete from customers where id=${customer_id}
+    `
+    await sql `
+        delete from invoices where customer_id=${customer_id}
+    `
+    revalidatePath('/dashboard/customers')
+    redirect('/dashboard/customers')
+}
 export async function createInvoice(formData: FormData) {
     // const rawFormData = Object.fromEntries(formData.entries())
     // console.log(rawFormData)
