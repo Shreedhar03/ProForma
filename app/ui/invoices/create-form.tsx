@@ -13,6 +13,8 @@ import SubmitBtn from '../submit-btn';
 export default function Form({ customers }: { customers: CustomerField[] }) {
   
   return (
+
+    customers.length===0 ? <Link href={'/dashboard/customers/create'}>You need to <span className='text-primary underline underline-offset-4'>add customers</span> to create an invoice</Link> :
     <form action={createInvoice}>
       <div className="rounded-md bg-secondary p-4 md:p-6 w-full sm:w-7/12">
         {/* Customer Name */}
