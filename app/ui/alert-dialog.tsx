@@ -9,10 +9,20 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
-import { ReactNode } from "react"
+import { ReactNode, useCallback } from "react"
 
-export default function AlertDialogBox({ text, actionMessage, triggerBtn, actionBtn }: { text: string, actionMessage: string, triggerBtn: ReactNode, actionBtn: ReactNode }) {
+interface AlertDialogBoxProps {
+    text: string;
+    triggerBtn: ReactNode;
+    actionBtn: string;
+    onConfirm: () => void; // Callback function for confirmation
+}
 
+export default function AlertDialogBox({ text, triggerBtn, actionBtn, onConfirm }: AlertDialogBoxProps) {
+    const handleConfirm = useCallback(() => {
+        // Call the callback function when the action button is clicked
+        onConfirm();
+    }, [onConfirm]);
     return (
         <AlertDialog>
             <AlertDialogTrigger asChild>
@@ -27,7 +37,7 @@ export default function AlertDialogBox({ text, actionMessage, triggerBtn, action
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                     <AlertDialogCancel>Cancel</AlertDialogCancel>
-                    <AlertDialogAction type="submit">
+                    <AlertDialogAction type="submit" onClick={handleConfirm}>
                         {actionBtn}
                     </AlertDialogAction>
                 </AlertDialogFooter>

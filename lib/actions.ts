@@ -47,14 +47,14 @@ export async function createCustomer(formData: FormData) {
     revalidatePath('/dashboard/customers')
     redirect('/dashboard/customers')
 }
-export async function deleteCustomer(formData: FormData) {
+export async function deleteCustomer(id:string) {
     console.log("-----------Deleteing--------------")
-    let customer_id = formData.get("cusId")?.toString()
+    // let customer_id = formData.get("cusId")?.toString()
     await sql`
-        delete from customers where id=${customer_id}
+        delete from customers where id=${id}
     `
     await sql `
-        delete from invoices where customer_id=${customer_id}
+        delete from invoices where customer_id=${id}
     `
     revalidatePath('/dashboard/customers')
     redirect('/dashboard/customers')
