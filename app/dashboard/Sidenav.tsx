@@ -36,7 +36,7 @@ export default function Sidenav({ isOpened, setIsOpened }: { isOpened: boolean, 
                 </section>
                 <form
                     action={Signout}>
-                    <button className='flex items-center gap-1 text-base hover:bg-[#460d22] py-2 px-3 self-start transition-all rounded-lg'><LogOut size={20}></LogOut>Sign Out</button>
+                    <button className='flex items-center gap-1 text-base hover:bg-[#460d22] hover:text-muted-foreground py-2 px-3 self-start transition-all rounded-lg'><LogOut size={20}></LogOut>Sign Out</button>
                 </form>
             </nav>
 

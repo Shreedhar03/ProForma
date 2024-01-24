@@ -26,7 +26,7 @@ export default function LatestINvoices({ invoices }: { invoices: Invoice[] }) {
                 {
                     invoices.map(inv => {
                         return (
-                            <div key={inv.id} className='flex justify-between bg-muted py-2 px-3 rounded-lg'>
+                            <Link href={`dashboard/invoices/${inv.id}/edit`} key={inv.id} className='flex justify-between bg-muted py-2 px-3 rounded-lg'>
                                 <div className='flex items-center gap-2'>
                                     <Image alt='user' width={44} height={44} className='rounded-full object-cover' src={inv.image_url} />
                                     <div>
@@ -35,7 +35,7 @@ export default function LatestINvoices({ invoices }: { invoices: Invoice[] }) {
                                     </div>
                                 </div>
                                 <h2 className='number'>{inv.amount}</h2>
-                            </div>
+                            </Link>
                         )
                     })
                 }
