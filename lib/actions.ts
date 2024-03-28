@@ -17,7 +17,9 @@ const FormSchema = z.object({
     customerId: z.string(),
     amount: z.coerce.number(),
     status: z.enum(['pending', 'paid']),
+    category: z.string(),
     date: z.string(),
+    qty: z.coerce.number(),
 })
 
 export async function getCurrentUserEmail() {
@@ -60,22 +62,26 @@ export async function deleteCustomer(id:string) {
     redirect('/dashboard/customers')
 }
 export async function createInvoice(formData: FormData) {
-    // const rawFormData = Object.fromEntries(formData.entries())
-    // console.log(rawFormData)
+    const rawFormData = Object.fromEntries(formData.entries())
+    console.log(rawFormData)
     try {
         let user = await getCurrentUserEmail()
-        console.log("----------creating invoice for user", user, "-------------------")
-        const { customerId, amount, status } = CreateInvoice.parse({
+        console.log("-->CREating invoice for user", user, "-------------------")
+        const { customerId, amount, status, category, qty } = CreateInvoice.parse({
             customerId: formData.get('customerId'),
             amount: formData.get('amount'),
             status: formData.get('status'),
+            category: formData.get('category'),
+            qty: formData.get('qty')
         });
-        const amountInCents = amount * 100;
+        console.log("-----started-----")
+        console.log(qty)
+        console.log("-----done-----")
+        const amountInCents = amount * 100 * qty;
         const date = new Date().toISOString().split('T')[0];
-
         const res = await sql`
-        INSERT INTO invoices (customer_id,user_id, amount,status, date)
-        VALUES  (${customerId},${user}, ${amountInCents}, ${status}, ${date})
+        INSERT INTO invoices (customer_id,user_id, amount,status, date,category,qty)
+        VALUES  (${customerId},${user}, ${amountInCents}, ${status}, ${date}, ${category}, ${qty})
         `
         console.log(res)
     } catch (error) {
@@ -89,19 +95,20 @@ export async function createInvoice(formData: FormData) {
 }
 
 export async function updateInvoice(id: string, formData: FormData) {
-    const UpdateInvoice = FormSchema.omit({ id: true, date: true });
+    const UpdateInvoice = FormSchema.omit({ id: true, date: true, category: true, qty: true,customerId:true});
+    console.log("updating", id, formData)
 
-    const { customerId, amount, status } = UpdateInvoice.parse({
-        customerId: formData.get('customerId'),
+    const { amount, status } = UpdateInvoice.parse({
+        // customerId: formData.get('customerId'),
         amount: formData.get('amount'),
         status: formData.get('status'),
     });
-
+    console.log(amount, status)
     const amountInCents = amount * 100;
     try {
 
         await sql`
-        update invoices SET customer_id = ${customerId}, amount = ${amountInCents}, status = ${status}
+        update invoices SET status = ${status}
         WHERE id=${id}
         `
     } catch (error) {

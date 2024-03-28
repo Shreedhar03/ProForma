@@ -64,6 +64,15 @@ export default async function InvoicesTable({
                   Email
                 </th>
                 <th scope="col" className="px-3 py-5 font-medium">
+                  Product Category
+                </th>
+                <th scope="col" className="px-3 py-5 font-medium">
+                  Ream Qty
+                </th>
+                <th scope="col" className="px-3 py-5 font-medium">
+                  Rate
+                </th>
+                <th scope="col" className="px-3 py-5 font-medium">
                   Amount
                 </th>
                 <th scope="col" className="px-3 py-5 font-medium">
@@ -85,18 +94,29 @@ export default async function InvoicesTable({
                 >
                   <td className="whitespace-nowrap py-3 pl-6 pr-3">
                     <div className="flex items-center gap-3">
-                      <Image
+                      {/* <Image
                         src={invoice.image_url}
                         className="rounded-full"
                         width={28}
                         height={28}
                         alt={`${invoice.name}'s profile picture`}
-                      />
+                      /> */}
                       <p>{invoice.name}</p>
                     </div>
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
                     {invoice.email}
+                  </td>
+                  <td className="whitespace-nowrap px-3 py-3">
+                    {invoice.category}
+                  </td>
+                  <td className="whitespace-nowrap px-3 py-3">
+                    {invoice.qty}
+                  </td>
+                  <td className="whitespace-nowrap px-3 py-3">
+                    {
+                      formatCurrency(invoice.amount/invoice.qty)
+                    }
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
                     {formatCurrency(invoice.amount)}
